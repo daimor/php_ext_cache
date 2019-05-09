@@ -31,10 +31,8 @@ RUN iris start $ISC_PACKAGE_INSTANCENAME quietly EmergencyId=sys,sys && \
             " Halt" \
     | iris session $ISC_PACKAGE_INSTANCENAME && \
     /bin/echo -e "sys\nsys\n" \
-    | iris stop $ISC_PACKAGE_INSTANCENAME quietly
-
-COPY --chown=www-data:www-data php/demo /var/www/html
-
-COPY startApache.sh /
+    | iris stop $ISC_PACKAGE_INSTANCENAME quietly &&\
+    echo 'service apache2 start' > /startApache.sh && \
+    chmod +x /startApache.sh
 
 CMD [ "-a", "/startApache.sh" ]
